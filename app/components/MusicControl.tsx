@@ -17,28 +17,18 @@ export default function MusicControl() {
       return;
     }
 
-    let isMounted = true;
-    fetch(config.music.src, { method: "HEAD" })
-      .then((res) => {
-        if (!isMounted) return;
-        if (!res.ok) {
-          setAvailable(false);
-          return;
-        }
-        const audio = new Audio(config.music.src);
-        audio.loop = true;
-        audio.volume = 0.4;
-        audioRef.current = audio;
-        audio.addEventListener("error", () => {
-          if (isMounted) setAvailable(false);
-        });
-      })
-      .catch(() => {
-        if (isMounted) setAvailable(false);
-      });
+    try {
+      const audio = new Audio(config.music.src);
+      audio.preload = "none";
+      audio.loop = true;
+      audio.volume = 0.4;
+      audio.onerror = () => setAvailable(false);
+      audioRef.current = audio;
+    } catch {
+      setAvailable(false);
+    }
 
     return () => {
-      isMounted = false;
       if (audioRef.current) {
         audioRef.current.pause();
         audioRef.current.src = "";
