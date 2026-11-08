@@ -12,3 +12,4 @@ To add romantic background music to this website:
 - The website is designed to never autoplay audio until Satyam interacts with the player.
 - If no audio file is provided, the music control gracefully hides itself and will not cause any errors.
 - Recommended format: MP3, 128kbps - 192kbps (small file size for quick loading on mobile).
+

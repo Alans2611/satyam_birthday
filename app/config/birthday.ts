@@ -183,10 +183,9 @@ Alankrit ♡`,
   finalScreen: {
     heading: "Happy Birthday, Satyam! ♡",
     message: `Even though I can't be beside you today,
-my love for you reaches every star in this universe.
+I hope this little universe reminds you how deeply you are loved.
 
 Thank you for being you.
-
 I love you so much.`,
     signature: "With all my love,\nAlankrit ♡",
     buttonText: "Forever & Always ♡",
