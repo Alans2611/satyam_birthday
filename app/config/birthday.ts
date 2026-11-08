@@ -37,12 +37,28 @@ export const config = {
 
   // ── SCREEN 2: BIRTHDAY PLANET ────────────────────────────
   birthdayPlanet: {
+    badge: "11 November 2002 · The Day the Stars Aligned",
     heading: "Today, the universe celebrates you.",
     subheading: "November 11 — The day my favorite person was born.",
-    countdownTitle: "Until Your Special Day",
-    onBirthday: "It's your day, Satyam! ♡",
-    afterBirthday: "Your special day may have passed, but celebrating you never ends.",
-    exploreButton: "Explore Our Universe",
+    milestones: [
+      {
+        value: "22 Years",
+        label: "Of your radiant light in this world",
+        icon: "✨",
+      },
+      {
+        value: "8,000+ Days",
+        label: "Of making everything around you softer & sweeter",
+        icon: "💫",
+      },
+      {
+        value: "1 Whole Universe",
+        label: "And out of all of it, my heart chose you",
+        icon: "🪐",
+      },
+    ],
+    note: "Even with miles between us today, every star in my sky shines only for you.",
+    exploreButton: "Explore Our Universe ✨",
   },
 
   // ── SCREEN 3: MEMORY GALAXY ──────────────────────────────
