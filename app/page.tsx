@@ -1,103 +1,159 @@
-import Image from "next/image";
+"use client";
+
+import { useState, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import WelcomeScreen from "./components/WelcomeScreen";
+import BirthdayPlanet from "./components/BirthdayPlanet";
+import MemoryGalaxy from "./components/MemoryGalaxy";
+import ElevenReasons from "./components/ElevenReasons";
+import LoveLetter from "./components/LoveLetter";
+import BirthdayCake from "./components/BirthdayCake";
+import FinalScreen from "./components/FinalScreen";
+import MusicControl from "./components/MusicControl";
+
+type Screen =
+  | "welcome"
+  | "birthday"
+  | "memories"
+  | "reasons"
+  | "letter"
+  | "cake"
+  | "final";
+
+const SCREENS: Screen[] = ["welcome", "birthday", "memories", "reasons", "letter", "cake", "final"];
+
+function ProgressDots({ current }: { current: Screen }) {
+  const idx = SCREENS.indexOf(current);
+  if (current === "welcome") return null;
+  return (
+    <div className="fixed top-6 left-1/2 -translate-x-1/2 z-40 flex gap-2" aria-hidden="true">
+      {SCREENS.slice(1).map((s, i) => (
+        <div
+          key={s}
+          className="rounded-full transition-all duration-500"
+          style={{
+            width: idx - 1 === i ? 20 : 8,
+            height: 8,
+            background: idx - 1 === i ? "#FF75B5" : "rgba(188,167,255,0.3)",
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+const screenVariants = {
+  enter: { opacity: 0, y: 50 },
+  center: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -30 },
+};
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [screen, setScreen] = useState<Screen>("welcome");
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  const goTo = useCallback((s: Screen) => {
+    setScreen(s);
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, []);
+
+  return (
+    <main className="relative min-h-screen bg-midnight" aria-label="A Little Universe for Satyam">
+      <ProgressDots current={screen} />
+      <MusicControl />
+
+      <AnimatePresence mode="wait">
+        {screen === "welcome" && (
+          <motion.div
+            key="welcome"
+            variants={screenVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ duration: 0.7, ease: "easeInOut" }}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            <WelcomeScreen onEnter={() => goTo("birthday")} />
+          </motion.div>
+        )}
+
+        {screen === "birthday" && (
+          <motion.div
+            key="birthday"
+            variants={screenVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ duration: 0.7, ease: "easeInOut" }}
           >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+            <BirthdayPlanet onExplore={() => goTo("memories")} />
+          </motion.div>
+        )}
+
+        {screen === "memories" && (
+          <motion.div
+            key="memories"
+            variants={screenVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ duration: 0.7, ease: "easeInOut" }}
+          >
+            <MemoryGalaxy onNext={() => goTo("reasons")} />
+          </motion.div>
+        )}
+
+        {screen === "reasons" && (
+          <motion.div
+            key="reasons"
+            variants={screenVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ duration: 0.7, ease: "easeInOut" }}
+          >
+            <ElevenReasons onNext={() => goTo("letter")} />
+          </motion.div>
+        )}
+
+        {screen === "letter" && (
+          <motion.div
+            key="letter"
+            variants={screenVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ duration: 0.7, ease: "easeInOut" }}
+          >
+            <LoveLetter onNext={() => goTo("cake")} />
+          </motion.div>
+        )}
+
+        {screen === "cake" && (
+          <motion.div
+            key="cake"
+            variants={screenVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ duration: 0.7, ease: "easeInOut" }}
+          >
+            <BirthdayCake onNext={() => goTo("final")} />
+          </motion.div>
+        )}
+
+        {screen === "final" && (
+          <motion.div
+            key="final"
+            variants={screenVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ duration: 0.7, ease: "easeInOut" }}
+          >
+            <FinalScreen onReplay={() => goTo("welcome")} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </main>
   );
 }
