@@ -42,7 +42,7 @@ export const config = {
     subheading: "November 11 — The day my favorite person was born.",
     milestones: [
       {
-        value: "22 Years",
+        value: "24 Years",
         label: "Of your radiant light in this world",
         icon: "✨",
       },

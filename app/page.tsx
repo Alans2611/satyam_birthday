@@ -22,23 +22,55 @@ type Screen =
 
 const SCREENS: Screen[] = ["welcome", "birthday", "memories", "reasons", "letter", "cake", "final"];
 
-function ProgressDots({ current }: { current: Screen }) {
+const SCREEN_LABELS: Record<Screen, string> = {
+  welcome: "Welcome",
+  birthday: "Celebration",
+  memories: "Our Memories",
+  reasons: "11 Reasons",
+  letter: "Love Letter",
+  cake: "Make a Wish",
+  final: "Forever",
+};
+
+function ProgressDots({ current, onSelect }: { current: Screen; onSelect: (s: Screen) => void }) {
   const idx = SCREENS.indexOf(current);
   if (current === "welcome") return null;
   return (
-    <div className="fixed top-6 left-1/2 -translate-x-1/2 z-40 flex gap-2" aria-hidden="true">
-      {SCREENS.slice(1).map((s, i) => (
-        <div
-          key={s}
-          className="rounded-full transition-all duration-500"
-          style={{
-            width: idx - 1 === i ? 20 : 8,
-            height: 8,
-            background: idx - 1 === i ? "#FF75B5" : "rgba(188,167,255,0.3)",
-          }}
-        />
-      ))}
-    </div>
+    <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-40 flex items-center gap-2" aria-label="Universe journey navigation">
+      {SCREENS.slice(1).map((s, i) => {
+        const isActive = idx - 1 === i;
+        return (
+          <button
+            key={s}
+            onClick={() => onSelect(s)}
+            className="group relative flex items-center justify-center p-1 cursor-pointer focus:outline-none"
+            aria-label={`Go to ${SCREEN_LABELS[s]}`}
+          >
+            <span
+              className="block rounded-full transition-all duration-500"
+              style={{
+                width: isActive ? 22 : 8,
+                height: 8,
+                background: isActive ? "#FF75B5" : "rgba(188,167,255,0.35)",
+                boxShadow: isActive ? "0 0 10px rgba(255,117,181,0.7)" : "none",
+              }}
+            />
+            {/* Tooltip on hover */}
+            <span
+              className="absolute top-full mt-2 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-full text-[11px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"
+              style={{
+                background: "rgba(16, 11, 37, 0.9)",
+                border: "1px solid rgba(255, 182, 217, 0.25)",
+                color: "#FFB6D9",
+                backdropFilter: "blur(6px)",
+              }}
+            >
+              {SCREEN_LABELS[s]}
+            </span>
+          </button>
+        );
+      })}
+    </nav>
   );
 }
 
@@ -59,7 +91,7 @@ export default function Home() {
 
   return (
     <main className="relative min-h-screen bg-midnight" aria-label="A Little Universe for Satyam">
-      <ProgressDots current={screen} />
+      <ProgressDots current={screen} onSelect={goTo} />
       <MusicControl />
 
       <AnimatePresence mode="wait">
