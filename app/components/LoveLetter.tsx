@@ -51,8 +51,10 @@ export default function LoveLetter({ onNext }: LoveLetterProps) {
 
   return (
     <div
-      className="full-screen flex flex-col items-center justify-center relative py-10"
-      style={{ background: "radial-gradient(ellipse at 50% 60%, #1f0d40 0%, #100B25 70%)" }}
+      className="full-screen relative flex flex-col screen-pad-top"
+      style={{
+        background: "radial-gradient(ellipse at 50% 50%, #1f0d40 0%, #100B25 70%)",
+      }}
     >
       <GalaxyCanvas starCount={180} shootingStars={false} />
 
@@ -60,36 +62,36 @@ export default function LoveLetter({ onNext }: LoveLetterProps) {
       <div className="nebula" style={{ width: 500, height: 300, background: "rgba(255,117,181,0.07)", top: "0", left: "0", animationDelay: "0s" }} />
       <div className="nebula" style={{ width: 350, height: 350, background: "rgba(188,167,255,0.07)", bottom: "0", right: "0", animationDelay: "5s" }} />
 
-      <div className="relative z-10 w-full max-w-2xl px-6 text-center">
-        {/* Header */}
+      {/* Header — centered below the fixed navigation dots */}
+      <div className="relative z-10 w-full text-center px-4 sm:px-6 pb-2 shrink-0">
         <motion.h2
-          className="text-3xl sm:text-4xl md:text-5xl mb-3"
+          className="text-2xl sm:text-4xl md:text-5xl mb-2 sm:mb-3"
           style={{ fontFamily: "var(--font-playfair)", color: "#FFF7FF" }}
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
         >
           {config.letter.heading}
         </motion.h2>
         <motion.p
-          className="mb-10"
-          style={{ fontFamily: "var(--font-dancing)", color: "#BCA7FF", fontSize: "1.15rem" }}
+          className="px-1"
+          style={{ fontFamily: "var(--font-dancing)", color: "#BCA7FF", fontSize: "clamp(1rem, 3.5vw, 1.15rem)" }}
           initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          viewport={{ once: true }}
         >
           {config.letter.subtitle}
         </motion.p>
+      </div>
 
-        {/* Envelope */}
+      {/* Letter / envelope — centered in the remaining viewport */}
+      <div className="relative z-10 flex-1 flex items-start sm:items-center justify-center px-4 sm:px-6 min-h-0 w-full screen-pad-bottom overflow-y-auto">
         <AnimatePresence mode="wait">
           {!opened ? (
             <motion.button
               key="envelope"
               onClick={openEnvelope}
-              className="relative mx-auto block cursor-pointer focus:outline-none"
+              className="relative block cursor-pointer focus:outline-none"
               aria-label="Open the letter"
               whileHover={{ scale: 1.03, y: -4 }}
               whileTap={{ scale: 0.98 }}
@@ -102,11 +104,11 @@ export default function LoveLetter({ onNext }: LoveLetterProps) {
               <div
                 className="relative mx-auto"
                 style={{
-                  width: "min(320px, 85vw)",
+                  width: "min(480px, 88vw)",
                   paddingBottom: "70%",
                   background: "linear-gradient(135deg, #2D1B4E, #4B2065)",
-                  borderRadius: 8,
-                  boxShadow: "0 20px 60px rgba(255,117,181,0.25), 0 0 40px rgba(188,167,255,0.1)",
+                  borderRadius: 12,
+                  boxShadow: "0 24px 70px rgba(255,117,181,0.28), 0 0 50px rgba(188,167,255,0.12)",
                   border: "1px solid rgba(255,182,217,0.25)",
                 }}
               >
@@ -117,7 +119,7 @@ export default function LoveLetter({ onNext }: LoveLetterProps) {
                     height: "55%",
                     background: "linear-gradient(170deg, #3D2060 0%, #2D1B4E 70%)",
                     clipPath: "polygon(0 0, 50% 70%, 100% 0)",
-                    borderRadius: "8px 8px 0 0",
+                    borderRadius: "12px 12px 0 0",
                   }}
                 />
 
@@ -128,7 +130,7 @@ export default function LoveLetter({ onNext }: LoveLetterProps) {
                     height: "55%",
                     background: "linear-gradient(10deg, #2D1B4E 0%, #3D2060 100%)",
                     clipPath: "polygon(0 100%, 50% 30%, 100% 100%)",
-                    borderRadius: "0 0 8px 8px",
+                    borderRadius: "0 0 12px 12px",
                   }}
                 />
                 <div
@@ -154,14 +156,14 @@ export default function LoveLetter({ onNext }: LoveLetterProps) {
                 <div
                   className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center rounded-full z-10"
                   style={{
-                    width: 56,
-                    height: 56,
+                    width: 72,
+                    height: 72,
                     background: "radial-gradient(circle at 35% 35%, #FF9ED0, #C02065)",
-                    boxShadow: "0 0 20px rgba(255,117,181,0.6), 0 0 40px rgba(255,117,181,0.3)",
+                    boxShadow: "0 0 24px rgba(255,117,181,0.65), 0 0 48px rgba(255,117,181,0.35)",
                     border: "2px solid rgba(255,182,217,0.4)",
                   }}
                 >
-                  <span style={{ fontSize: "1.5rem" }}>♡</span>
+                  <span style={{ fontSize: "1.85rem" }}>♡</span>
                 </div>
 
                 {/* Floating sparkles */}
@@ -182,7 +184,7 @@ export default function LoveLetter({ onNext }: LoveLetterProps) {
                 ))}
               </div>
 
-              <p className="mt-5 text-sm" style={{ color: "#BCA7FF" }}>
+              <p className="mt-5 text-sm text-center" style={{ color: "#BCA7FF" }}>
                 Tap to open ♡
               </p>
             </motion.button>
@@ -193,11 +195,11 @@ export default function LoveLetter({ onNext }: LoveLetterProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               onClick={skipTyping}
-              className="cursor-pointer"
+              className="cursor-pointer w-full max-w-xl text-center py-2"
             >
               {/* Letter paper */}
               <div
-                className="relative mx-auto text-left p-6 sm:p-8 rounded-lg"
+                className="relative mx-auto text-left p-4 sm:p-8 rounded-lg"
                 style={{
                   maxWidth: 560,
                   background: "linear-gradient(135deg, rgba(255,247,255,0.04) 0%, rgba(188,167,255,0.03) 100%)",
@@ -220,11 +222,11 @@ export default function LoveLetter({ onNext }: LoveLetterProps) {
                 ))}
 
                 <pre
-                  className="whitespace-pre-wrap leading-8 relative z-10"
+                  className="whitespace-pre-wrap leading-7 sm:leading-8 relative z-10"
                   style={{
                     fontFamily: "var(--font-dancing)",
                     color: "#FFF7FF",
-                    fontSize: "clamp(1rem, 2.5vw, 1.15rem)",
+                    fontSize: "clamp(0.95rem, 3.2vw, 1.15rem)",
                   }}
                 >
                   {displayedText}
@@ -248,7 +250,7 @@ export default function LoveLetter({ onNext }: LoveLetterProps) {
               {typingDone && (
                 <motion.button
                   onClick={onNext}
-                  className="btn-primary mt-8"
+                  className="btn-primary mt-6 sm:mt-8 touch-manipulation text-sm sm:text-base"
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.3 }}

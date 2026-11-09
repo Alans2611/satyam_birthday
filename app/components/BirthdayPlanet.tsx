@@ -11,8 +11,10 @@ interface BirthdayPlanetProps {
 export default function BirthdayPlanet({ onExplore }: BirthdayPlanetProps) {
   return (
     <div
-      className="full-screen flex flex-col items-center justify-center relative py-12 px-4 overflow-y-auto"
-      style={{ background: "radial-gradient(ellipse at 60% 30%, #2a1050 0%, #100B25 70%)" }}
+      className="full-screen flex flex-col items-center justify-center relative px-4 screen-pad-top screen-pad-bottom"
+      style={{
+        background: "radial-gradient(ellipse at 60% 30%, #2a1050 0%, #100B25 70%)",
+      }}
     >
       <GalaxyCanvas starCount={220} shootingStars={false} />
 
@@ -40,10 +42,14 @@ export default function BirthdayPlanet({ onExplore }: BirthdayPlanetProps) {
         }}
       />
 
-      <div className="relative z-10 flex flex-col items-center text-center px-4 max-w-4xl mx-auto w-full">
+      <div
+        className="relative z-10 flex flex-col items-center text-center px-2 sm:px-4 max-w-4xl mx-auto w-full"
+        style={{ gap: "clamp(1.25rem, 4vh, 2.75rem)" }}
+      >
         {/* Planet */}
         <motion.div
-          className="relative mb-6 sm:mb-8"
+          className="relative"
+          style={{ marginBottom: 4 }}
           animate={{ y: [0, -10, 0] }}
           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
         >
@@ -61,8 +67,8 @@ export default function BirthdayPlanet({ onExplore }: BirthdayPlanetProps) {
           <div
             className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
             style={{
-              width: 220,
-              height: 46,
+              width: "clamp(170px, 55vw, 220px)",
+              height: "clamp(36px, 12vw, 46px)",
               borderRadius: "50%",
               border: "3px solid rgba(255,182,217,0.45)",
               transform: "translate(-50%,-50%) rotateX(70deg) scaleX(1.4)",
@@ -73,8 +79,8 @@ export default function BirthdayPlanet({ onExplore }: BirthdayPlanetProps) {
           <div
             className="relative"
             style={{
-              width: 130,
-              height: 130,
+              width: "clamp(100px, 30vw, 130px)",
+              height: "clamp(100px, 30vw, 130px)",
               borderRadius: "50%",
               background: "radial-gradient(circle at 35% 35%, #FF9ED0, #9B59B6 50%, #1B1038)",
               boxShadow:
@@ -141,7 +147,7 @@ export default function BirthdayPlanet({ onExplore }: BirthdayPlanetProps) {
 
         {/* Badge */}
         <motion.div
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-4 glass-card"
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card"
           style={{
             borderColor: "rgba(255,182,217,0.3)",
             background: "rgba(255,117,181,0.08)",
@@ -156,36 +162,39 @@ export default function BirthdayPlanet({ onExplore }: BirthdayPlanetProps) {
           </span>
         </motion.div>
 
-        {/* Text */}
-        <motion.h2
-          className="text-3xl sm:text-4xl md:text-5xl mb-3"
-          style={{ fontFamily: "var(--font-playfair)", color: "#FFF7FF" }}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          {config.birthdayPlanet.heading}
-        </motion.h2>
+        {/* Text block — heading + subheading with their own gap */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20, width: "100%" }}>
+          <motion.h2
+            className="text-3xl sm:text-4xl md:text-5xl"
+            style={{ fontFamily: "var(--font-playfair)", color: "#FFF7FF", margin: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            {config.birthdayPlanet.heading}
+          </motion.h2>
 
-        <motion.p
-          className="text-lg sm:text-xl mb-8"
-          style={{
-            fontFamily: "var(--font-dancing)",
-            color: "#FFB6D9",
-            fontSize: "clamp(1.15rem, 3.2vw, 1.6rem)",
-          }}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          viewport={{ once: true }}
-        >
-          {config.birthdayPlanet.subheading}
-        </motion.p>
+          <motion.p
+            className="text-lg sm:text-xl"
+            style={{
+              fontFamily: "var(--font-dancing)",
+              color: "#FFB6D9",
+              fontSize: "clamp(1.15rem, 3.2vw, 1.6rem)",
+              margin: 0,
+            }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            {config.birthdayPlanet.subheading}
+          </motion.p>
+        </div>
 
-        {/* Cosmic Milestones replacing the countdown */}
+        {/* Cosmic Milestones */}
         <motion.div
-          className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4 w-full max-w-2xl mb-8"
+          className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4 w-full max-w-2xl"
           initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.35 }}
@@ -230,11 +239,12 @@ export default function BirthdayPlanet({ onExplore }: BirthdayPlanetProps) {
 
         {/* Romantic Note */}
         <motion.p
-          className="text-sm sm:text-base max-w-lg mb-8 leading-relaxed"
+          className="text-sm sm:text-base max-w-lg leading-relaxed px-1"
           style={{
             fontFamily: "var(--font-dancing)",
             color: "rgba(255, 247, 255, 0.85)",
-            fontSize: "clamp(1.05rem, 2.5vw, 1.3rem)",
+            fontSize: "clamp(1rem, 3.2vw, 1.3rem)",
+            margin: 0,
           }}
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -247,7 +257,7 @@ export default function BirthdayPlanet({ onExplore }: BirthdayPlanetProps) {
         {/* Button */}
         <motion.button
           onClick={onExplore}
-          className="btn-primary text-base sm:text-lg px-8 py-3.5"
+          className="btn-primary text-sm sm:text-lg px-6 sm:px-8 py-3.5 touch-manipulation"
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.6 }}

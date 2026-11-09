@@ -26,12 +26,14 @@ interface GalaxyCanvasProps {
   className?: string;
   starCount?: number;
   shootingStars?: boolean;
+  style?: React.CSSProperties;
 }
 
 export default function GalaxyCanvas({
   className = "",
   starCount = 250,
   shootingStars = true,
+  style = {},
 }: GalaxyCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rafRef = useRef<number>(0);
@@ -163,6 +165,7 @@ export default function GalaxyCanvas({
     <canvas
       ref={canvasRef}
       className={`absolute inset-0 w-full h-full pointer-events-none ${className}`}
+      style={style}
       aria-hidden="true"
     />
   );

@@ -57,7 +57,13 @@ export default function MusicControl() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2">
+    <div
+      className="fixed z-50 flex items-center gap-2"
+      style={{
+        bottom: "max(1rem, env(safe-area-inset-bottom))",
+        right: "max(1rem, env(safe-area-inset-right))",
+      }}
+    >
       {/* Music icon button */}
       <button
         onClick={toggle}

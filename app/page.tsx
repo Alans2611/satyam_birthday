@@ -36,28 +36,32 @@ function ProgressDots({ current, onSelect }: { current: Screen; onSelect: (s: Sc
   const idx = SCREENS.indexOf(current);
   if (current === "welcome") return null;
   return (
-    <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-40 flex items-center gap-2" aria-label="Universe journey navigation">
+    <nav
+      className="fixed left-1/2 -translate-x-1/2 z-40 flex items-center gap-1.5 sm:gap-2 px-2"
+      style={{ top: "max(0.75rem, env(safe-area-inset-top))" }}
+      aria-label="Universe journey navigation"
+    >
       {SCREENS.slice(1).map((s, i) => {
         const isActive = idx - 1 === i;
         return (
           <button
             key={s}
             onClick={() => onSelect(s)}
-            className="group relative flex items-center justify-center p-1 cursor-pointer focus:outline-none"
+            className="group relative flex items-center justify-center p-1.5 sm:p-1 cursor-pointer focus:outline-none touch-manipulation"
             aria-label={`Go to ${SCREEN_LABELS[s]}`}
           >
             <span
               className="block rounded-full transition-all duration-500"
               style={{
-                width: isActive ? 22 : 8,
-                height: 8,
+                width: isActive ? 18 : 7,
+                height: 7,
                 background: isActive ? "#FF75B5" : "rgba(188,167,255,0.35)",
                 boxShadow: isActive ? "0 0 10px rgba(255,117,181,0.7)" : "none",
               }}
             />
-            {/* Tooltip on hover */}
+            {/* Tooltip — desktop hover only */}
             <span
-              className="absolute top-full mt-2 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-full text-[11px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"
+              className="absolute top-full mt-2 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-full text-[11px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none hidden sm:block"
               style={{
                 background: "rgba(16, 11, 37, 0.9)",
                 border: "1px solid rgba(255, 182, 217, 0.25)",
@@ -98,6 +102,7 @@ export default function Home() {
         {screen === "welcome" && (
           <motion.div
             key="welcome"
+            className="w-full"
             variants={screenVariants}
             initial="enter"
             animate="center"
@@ -111,6 +116,7 @@ export default function Home() {
         {screen === "birthday" && (
           <motion.div
             key="birthday"
+            className="w-full"
             variants={screenVariants}
             initial="enter"
             animate="center"
@@ -124,6 +130,7 @@ export default function Home() {
         {screen === "memories" && (
           <motion.div
             key="memories"
+            className="w-full"
             variants={screenVariants}
             initial="enter"
             animate="center"
@@ -137,6 +144,7 @@ export default function Home() {
         {screen === "reasons" && (
           <motion.div
             key="reasons"
+            className="w-full"
             variants={screenVariants}
             initial="enter"
             animate="center"
@@ -150,6 +158,7 @@ export default function Home() {
         {screen === "letter" && (
           <motion.div
             key="letter"
+            className="w-full"
             variants={screenVariants}
             initial="enter"
             animate="center"
@@ -163,6 +172,7 @@ export default function Home() {
         {screen === "cake" && (
           <motion.div
             key="cake"
+            className="w-full"
             variants={screenVariants}
             initial="enter"
             animate="center"
@@ -176,6 +186,7 @@ export default function Home() {
         {screen === "final" && (
           <motion.div
             key="final"
+            className="w-full"
             variants={screenVariants}
             initial="enter"
             animate="center"
